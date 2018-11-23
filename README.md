@@ -1,8 +1,8 @@
 # Sometimes
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sometimes`. To experiment with that code, run `bin/console` for an interactive prompt.
+Sometimes backups are good.
 
-TODO: Delete this and the text above, and describe your gem
+Too simple script (tss) to create backups or other regular tasks with file output.
 
 ## Installation
 
@@ -20,9 +20,41 @@ Or install it yourself as:
 
     $ gem install sometimes
 
+## Dump structure
+
+# Assume this directory structure:
+# $ tree
+# .
+# ├── filedumps
+# │   ├── daily
+# │   ├── monthly
+# │   └── weekly
+
+
+Path Key Schedule User Host What Type Comment
+
+### Config Files
+
+example:
+
+path: /tmp/exaback
+key: /tmp/key
+comment: exabackup files
+store_size:
+  daily: 3
+  weekly: 2
+  monthly: 2
+  yearly: 1
+user: back-up
+host: 12.211.2.1
+type: tgz
+what: /var/exaback
+
+
 ## Usage
 
-TODO: Write usage instructions here
+Multiple entries.
+
 
 ## Development
 
