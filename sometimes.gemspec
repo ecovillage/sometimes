@@ -8,6 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Sometimes::VERSION
   spec.authors       = ["Felix Wolfsteller"]
   spec.email         = ["felix.wolfsteller@gmail.com"]
+  spec.license       = ["GPLv3"]
 
   spec.summary       = %q{Poor mans scheduling, for oppionionated tasks}
   spec.description   = %q{Poor mans scheduling, to use e.g. cron and a backup schedule.}
