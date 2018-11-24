@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+
+require 'sometimes'
+
+require 'optparse'
+require 'date'
+
+options = {}
+program_name = File.basename __FILE__
+$program_name = program_name
+
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: #{program_name} [OPTIONS]"
+  opts.separator ""
+  # TODO more prose about what happens/will happen, exit codes...
+
+  opts.separator "Sometimes definition"
+  opts.on("-c", "--config FILE", 'file path to the (YAML) sometimes definition file.') do |c|
+    if !File.exist? c
+      STDERR.puts "Cannot load conf file #{c}"
+      exit 2
+    end
+
+    options[:conf_file] = c
+  end
+
+  opts.separator ""
+  opts.separator "General"
+  opts.on("-v", "--verbose", 'do log verbose output') do |v|
+    options[:verbose] = v
+  end
+
+  opts.on_tail('--version', 'Show version.') do
+    puts "#{program_name} #{Sometimes::VERSION}"
+    exit 0
+  end
+  opts.on('-h', '--help', 'Show this help.') do
+    puts opts
+    exit 0
+  end
+end
+optparse.parse!
+
+if options[:verbose]
+  Sometimes.logger.level = Logger::DEBUG
+else
+  Sometimes.logger.level = Logger::INFO
+end
+
+definition = Sometimes.read_def(options[:conf_file])
+
+now = DateTime.now
+
+# Pseudo-schedule (TODO)
+if now.day == 1
+  scheme = :monthly
+elsif now.wday == 0 # sunday
+  scheme = :weekly
+else
+  scheme = :daily
+end
+
+keep_nr = definition.store_size[scheme.to_s]
+
+# File.expand_path ...
+store_path = "#{definition.path}/#{scheme.to_s}"
+
+cleanup_cmd = "ls -tp #{store_path} | grep -v '/$' | tail -n +#{keep_nr.to_i + 1} | xargs -I {} rm -- #{store_path}/{}"
+
+puts cleanup_cmd
+
+system(cleanup_cmd)
+
+now_relpath = "#{store_path}/#{now.strftime('%F_%H%M')}.tgz"
+
+system("ssh -i #{definition.key} #{definition.user}@#{definition.host} > #{now_relpath}")
+
+# Link it. TODO: in path, better naming
+system("rm filedump_last")
+system("ln -s #{now_relpath} filedump_last")
+
+exit 0
