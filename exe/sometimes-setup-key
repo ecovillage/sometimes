@@ -57,7 +57,10 @@ end
 
 # Create the key-pair
 system(command)
-# TODO check result
+if $?.exitstatus
+  STDERR.puts "Key creation failed!"
+  exit 1
+end
 
 # Create authorized_keys file entry
 what_path = File.expand_path definition.what
@@ -66,5 +69,8 @@ authorized_keys = "command=\"tar -cz --file - --ignore-command-error "\
   "--ignore-failed-read %s 2>/dev/null\",restrict %s" %
   [shescape.call(what_path), pub_key]
 
-# TODO sanity check
+# TODO sanity check, result check
 File.open(key_path + ".authorized_keys.command", 'w') {|f| f.write(authorized_keys) }
+
+# Explicit, graceful exit
+exit 0
