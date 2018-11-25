@@ -1,6 +1,7 @@
 require "sometimes/version"
 
 require "sometimes/shell"
+require "sometimes/file_environment"
 
 require 'logger'
 
