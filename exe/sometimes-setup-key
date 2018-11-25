@@ -41,6 +41,12 @@ optparse = OptionParser.new do |opts|
 end
 optparse.parse!
 
+if options[:verbose]
+  Sometimes.logger.level = Logger::DEBUG
+else
+  Sometimes.logger.level = Logger::INFO
+end
+
 # TODO check if tools are present
 # TODO logging
 
@@ -51,13 +57,9 @@ shescape = lambda {|v| Shellwords.escape v}
 command = "ssh-keygen -q -N '' -C '%s' -f %s" % [definition.comment,
                                                  key_path].map(&shescape)
 
-if options[:verbose]
-  puts command
-end
-
 # Create the key-pair
-system(command)
-if $?.exitstatus
+Sometimes::Shell.execute(command)
+if $?.exitstatus != 0
   STDERR.puts "Key creation failed!"
   exit 1
 end
