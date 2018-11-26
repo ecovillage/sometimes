@@ -69,14 +69,16 @@ cleanup_cmd = "ls -tp #{store_path} | grep -v '/$' | tail -n +#{keep_nr.to_i + 1
 
 puts cleanup_cmd
 
-system(cleanup_cmd)
+Sometimes::Shell.execute(cleanup_cmd)
 
-now_relpath = "#{store_path}/#{now.strftime('%F_%H%M')}.tgz"
+file_extension = definition.type == 'mysql' ? '.sql' : 'tgz'
+now_relpath = "#{store_path}/#{now.strftime('%F_%H%M')}.#{file_extension}"
 
-system("ssh -i #{definition.key} #{definition.user}@#{definition.host} > #{now_relpath}")
+ssh_command = "ssh -i #{definition.key} #{definition.user}@#{definition.host} > #{now_relpath}"
+Sometimes::Shell.execute(ssh_command)
 
 # Link it. TODO: in path, better naming
-system("rm filedump_last")
-system("ln -s #{now_relpath} filedump_last")
+Sometimes::Shell.execute("rm filedump_last")
+Sometimes::Shell.execute("ln -s #{now_relpath} filedump_last")
 
 exit 0
