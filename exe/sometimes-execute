@@ -60,16 +60,7 @@ else
   scheme = :daily
 end
 
-keep_nr = definition.store_size[scheme.to_s]
-
-# File.expand_path ...
-store_path = "#{definition.path}/#{scheme.to_s}"
-
-cleanup_cmd = "ls -tp #{store_path} | grep -v '/$' | tail -n +#{keep_nr.to_i + 1} | xargs -I {} rm -- #{store_path}/{}"
-
-puts cleanup_cmd
-
-Sometimes::Shell.execute(cleanup_cmd)
+Sometimes::StoreCleaner.clean! definition, scheme
 
 file_extension = definition.type == 'mysql' ? '.sql' : 'tgz'
 now_relpath = "#{store_path}/#{now.strftime('%F_%H%M')}.#{file_extension}"
