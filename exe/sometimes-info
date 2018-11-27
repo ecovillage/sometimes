@@ -52,6 +52,7 @@ definition = Sometimes.read_def(options[:conf_file])
 Sometimes::FileEnvironment.prepare! definition
 
 # list contents (tree-like)
+Sometimes::Shell.execute("tree -h #{definition.path}")
 
 # Exit gracefully
 exit 0
