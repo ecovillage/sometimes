@@ -4,6 +4,8 @@ Sometimes backups are good.
 
 Too simple script (tss) to create backups or other regular tasks with file output via ssh.
 
+Only ready to use for the insanest of all people.
+
 Copyright 2018 Felix Wolfsteller, licensed under the GPLv3 (see LICENSE file for details).
 
 ## Installation
