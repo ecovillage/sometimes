@@ -17,6 +17,8 @@ module Sometimes
   end
 
   def self.read_def name
+    @@logger.debug("Loading definition file #{name}")
+
     config = TTY::Config.new
     config.read name, format: :yaml
     BackupDefinition.new(config.fetch(:path),
@@ -31,6 +33,6 @@ module Sometimes
   end
 
   def self.logger
-    @@logger ||= Logger.new(STDOUT)
+    @@logger ||= Logger.new(STDOUT).tap{|l| l.level == Logger::INFO}
   end
 end
