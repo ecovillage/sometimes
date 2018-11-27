@@ -41,6 +41,7 @@ While all this behavior can be achieved with cron, rsync, shell-scripts, logrota
 
 ## Dump structure
 
+```
 # Assume this directory structure:
 # $ tree
 # .
@@ -56,8 +57,7 @@ While all this behavior can be achieved with cron, rsync, shell-scripts, logrota
 # │   │   ├── 2017-01-01_2000.tgz
 # │   │   └── 2018-01-01_2000.tgz
 # │   └── last
-
-
+```
 
 
 ### Config Files
