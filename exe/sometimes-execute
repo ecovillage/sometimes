@@ -62,14 +62,15 @@ end
 
 Sometimes::StoreCleaner.clean! definition, scheme
 
-file_extension = definition.type == 'mysql' ? '.sql' : 'tgz'
+file_extension = definition.type == 'mysql' ? 'sql' : 'tgz'
 now_relpath = "#{store_path}/#{now.strftime('%F_%H%M')}.#{file_extension}"
 
 ssh_command = "ssh -i #{definition.key} #{definition.user}@#{definition.host} > #{now_relpath}"
 Sometimes::Shell.execute(ssh_command)
 
-# Link it. TODO: in path, better naming
-Sometimes::Shell.execute("rm filedump_last")
-Sometimes::Shell.execute("ln -s #{now_relpath} filedump_last")
+# Link it. TODO: Absolute paths
+last_file_link_path = "#{definition.path}/last.#{file_extension}"
+Sometimes::Shell.execute("rm #{last_file_link_path}")
+Sometimes::Shell.execute("ln -s #{now_relpath} #{last_file_link_path}")
 
 exit 0
