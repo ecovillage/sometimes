@@ -4,7 +4,11 @@ require 'sometimes'
 
 require 'shellwords'
 
-optparse, options = Sometimes::CLI::Common.option_parser
+optparse, options = Sometimes::CLI::Common.option_parser ""\
+  "Create three files:\n"\
+  "  - a keypair (public and private key)\n"\
+  "  - a file containing a line for an authorized_keys file\n"\
+  "The files are put in the location given by the defition file"
 optparse.parse!
 
 Sometimes::EnvironmentCheck.check!

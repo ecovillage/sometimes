@@ -4,14 +4,15 @@ module Sometimes
   module CLI
     module Common
       # Define an option parser and options, return in this order
-      def self.option_parser
+      def self.option_parser synopsis
         options = {}
         $program_name = File.basename $PROGRAM_NAME
         
         optparse = OptionParser.new do |opts|
           opts.banner = "Usage: #{$program_name} [OPTIONS] [DEFINITION_FILE]"
           opts.separator ""
-          # TODO more prose about what happens/will happen, exit codes...
+          opts.separator synopsis
+          opts.separator ""
         
           opts.separator "Sometimes definition"
           opts.on("-c", "--config FILE", 'file path to the (YAML) sometimes definition file (can also be passed as argument).') do |c|

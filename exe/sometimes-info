@@ -2,7 +2,8 @@
 
 require 'sometimes'
 
-optparse, options = Sometimes::CLI::Common.option_parser
+optparse, options = Sometimes::CLI::Common.option_parser ""\
+  "Prints informations about backups controlled by definition file"
 optparse.parse!
 
 Sometimes::EnvironmentCheck.check!
