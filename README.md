@@ -98,6 +98,9 @@ what: /var/exaback
 
 Multiple entries.
 
+Currently following scenarios (types) are supported:
+  * `tgz` (simple filedump)
+  * `mysql` (plain text file)
 
 ## Development
 
