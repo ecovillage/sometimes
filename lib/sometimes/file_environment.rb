@@ -14,5 +14,15 @@ module Sometimes
         end
       end
     end
+
+    # path to link to last file
+    def self.last_file_link_path definition
+      File.expand_path(definition.path + "/last." + file_extension(definition))
+    end
+
+    # backup file extension
+    def self.file_extension definition
+      definition.type == 'mysql' ? 'sql' : 'tgz'
+    end
   end
 end
