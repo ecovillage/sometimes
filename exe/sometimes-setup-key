@@ -9,19 +9,7 @@ optparse.parse!
 
 Sometimes::EnvironmentCheck.check!
 
-# TODO move this into the boilerplate
-if !options[:conf_file] && !ARGV[0]
-  STDERR.puts "Need to specify definition file (-c or as argument)."
-  exit 1
-end
-if options[:conf_file] && ARGV[0]
-  STDERR.puts "Need to specify only one definition file (-c OR as argument)."
-  exit 1
-end
-
-definition_file = options[:conf_file] || ARGV[0]
-
-definition = Sometimes::read_def definition_file
+definition = Sometimes::CLI::Common.load_definition options
 key_path   = File.expand_path definition.key
 
 shescape = lambda {|v| Shellwords.escape v}

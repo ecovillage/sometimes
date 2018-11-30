@@ -9,12 +9,12 @@ module Sometimes
         $program_name = File.basename $PROGRAM_NAME
         
         optparse = OptionParser.new do |opts|
-          opts.banner = "Usage: #{$program_name} [OPTIONS]"
+          opts.banner = "Usage: #{$program_name} [OPTIONS] [DEFINITION_FILE]"
           opts.separator ""
           # TODO more prose about what happens/will happen, exit codes...
         
           opts.separator "Sometimes definition"
-          opts.on("-c", "--config FILE", 'file path to the (YAML) sometimes definition file.') do |c|
+          opts.on("-c", "--config FILE", 'file path to the (YAML) sometimes definition file (can also be passed as argument).') do |c|
             if !File.exist? c
               STDERR.puts "Cannot load conf file #{c}"
               exit 2
@@ -46,6 +46,21 @@ module Sometimes
 
         Sometimes::logger.debug("Starting #{$program_name} #{Sometimes::VERSION}")
         return [optparse, options]
+      end
+      
+      def self.load_definition! options
+        if !options[:conf_file] && !ARGV[0]
+          STDERR.puts "Need to specify definition file (-c or as argument)."
+          exit 1
+        end
+        if options[:conf_file] && ARGV[0]
+          STDERR.puts "Need to specify only one definition file (-c OR as argument)."
+          exit 1
+        end
+        
+        definition_file = options[:conf_file] || ARGV[0]
+        
+        definition = Sometimes::read_def definition_file
       end
     end
   end
