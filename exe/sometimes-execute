@@ -2,7 +2,6 @@
 
 require 'sometimes'
 
-require 'optparse'
 require 'date'
 
 optparse, options = Sometimes::CLI::Common.option_parser

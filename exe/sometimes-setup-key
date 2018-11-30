@@ -4,10 +4,6 @@ require 'sometimes'
 
 require 'shellwords'
 
-require 'optparse'
-
-# TODO check if tools are present
-
 optparse, options = Sometimes::CLI::Common.option_parser
 optparse.parse!
 
