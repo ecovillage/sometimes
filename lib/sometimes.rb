@@ -11,7 +11,6 @@ require "sometimes/store_cleaner"
 require 'logger'
 
 require 'tty-config'
-require 'attr_extras'
 
 module Sometimes
   # Struct?
