@@ -5,9 +5,9 @@ require 'sometimes'
 optparse, options = Sometimes::CLI::Common.option_parser
 optparse.parse!
 
-definition = Sometimes::CLI::Common.load_definition options
-
 Sometimes::EnvironmentCheck.check!
+
+definition = Sometimes::CLI::Common.load_definition options
 
 Sometimes::FileEnvironment.prepare! definition
 

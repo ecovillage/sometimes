@@ -9,7 +9,8 @@ optparse.parse!
 
 Sometimes::EnvironmentCheck.check!
 
-definition = Sometimes.read_def(options[:conf_file])
+definition = Sometimes::CLI::Common.load_definition options
+Sometimes::FileEnvironment.prepare! definition
 
 now = DateTime.now
 
