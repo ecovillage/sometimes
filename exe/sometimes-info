@@ -2,8 +2,6 @@
 
 require 'sometimes'
 
-require 'optparse'
-
 optparse, options = Sometimes::CLI::Common.option_parser
 optparse.parse!
 
