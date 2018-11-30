@@ -24,4 +24,15 @@ module Sometimes
     def key
       File.expand_path @key
     end
+
+    # pseudo-indifferent access could work like this
+    #def store_size
+    #  #config.default_proc = proc do |h, k|
+    #  #  case k
+    #  #    when String then sym = k.to_sym; h[sym] if h.key?(sym)
+    #  #    when Symbol then str = k.to_s; h[str] if h.key?(str)
+    #  #  end
+    #  #end
+    #end
+  end
 end
