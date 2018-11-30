@@ -38,4 +38,5 @@ last_file_link_path = "#{definition.path}/last.#{file_extension}"
 Sometimes::Shell.execute("rm #{last_file_link_path}")
 Sometimes::Shell.execute("ln -s #{now_relpath} #{last_file_link_path}")
 
+# Exit gracefully
 exit 0
