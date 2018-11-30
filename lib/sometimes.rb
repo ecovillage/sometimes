@@ -37,6 +37,6 @@ module Sometimes
   end
 
   def self.logger
-    @@logger ||= Logger.new(STDOUT).tap{|l| l.level == Logger::INFO}
+    @@logger ||= Logger.new(STDOUT).tap{|l| l.level = Logger::INFO}
   end
 end
