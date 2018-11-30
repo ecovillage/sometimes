@@ -10,7 +10,16 @@ definition = Sometimes.read_def(options[:conf_file])
 Sometimes::FileEnvironment.prepare! definition
 
 # list contents (tree-like)
+puts ""
+puts "Backups found:"
 Sometimes::Shell.execute("tree -h #{definition.path}")
+
+# list contents of last tgz (if its tgz)
+puts ""
+puts "Content of last backup:"
+if definition.type.to_s == "tgz"
+  Sometimes::Shell.execute("tar --list -f #{Sometimes::FileEnvironment.path_to_last_file definition}")
+end
 
 # Exit gracefully
 exit 0
