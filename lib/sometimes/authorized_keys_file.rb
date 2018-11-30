@@ -20,7 +20,8 @@ module Sometimes
         # password=secret
         Sometimes::logger.debug("Creating mysql authorized keys line")
         "mysqldump --single-transaction --quick --lock-tables=false #{definition.what}"
-      else Sometimes::logger.warn("Do not know how to deal with command type #{definition.type}")
+      else
+        Sometimes::logger.warn("Do not know how to deal with command type #{definition.type}")
       end
     end
 
