@@ -4,6 +4,7 @@ require "sometimes/backup_definition"
 require "sometimes/shell"
 require "sometimes/cli/common"
 require "sometimes/file_environment"
+require "sometimes/environment_check"
 require "sometimes/authorized_keys_file"
 require "sometimes/store_cleaner"
 
