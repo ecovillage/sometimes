@@ -1,3 +1,5 @@
+require 'optparse'
+
 module Sometimes
   module CLI
     module Common
@@ -25,7 +27,7 @@ module Sometimes
           opts.separator "General"
           opts.on("-v", "--verbose", 'do log verbose output') do |v|
             options[:verbose] = v
-            Sometimes.logger.level = Logger::INFO
+            Sometimes.logger.level = Logger::DEBUG
           end
         
           opts.on_tail('--version', 'Show version.') do
