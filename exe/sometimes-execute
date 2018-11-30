@@ -24,7 +24,7 @@ end
 Sometimes::StoreCleaner.clean! definition, scheme
 
 store_path = "#{definition.path}/#{scheme.to_s}"
-file_extension = definition.type == 'mysql' ? 'sql' : 'tgz'
+file_extension = Sometimes::FileEnvironment.file_extension(definition)
 now_relpath = "#{store_path}/#{now.strftime('%F_%H%M')}.#{file_extension}"
 
 ssh_command = "ssh -i #{definition.key} #{definition.user}@#{definition.host} > #{now_relpath}"
