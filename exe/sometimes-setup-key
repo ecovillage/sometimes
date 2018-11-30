@@ -13,7 +13,7 @@ optparse.parse!
 
 Sometimes::EnvironmentCheck.check!
 
-definition = Sometimes::CLI::Common.load_definition options
+definition = Sometimes::CLI::Common.load_definition! options
 key_path   = File.expand_path definition.key
 
 shescape = lambda {|v| Shellwords.escape v}
