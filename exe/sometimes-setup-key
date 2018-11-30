@@ -7,6 +7,8 @@ require 'shellwords'
 optparse, options = Sometimes::CLI::Common.option_parser
 optparse.parse!
 
+Sometimes::EnvironmentCheck.check!
+
 # TODO move this into the boilerplate
 if !options[:conf_file] && !ARGV[0]
   STDERR.puts "Need to specify definition file (-c or as argument)."
