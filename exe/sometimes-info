@@ -21,7 +21,7 @@ Sometimes::Shell.execute("tree -h #{definition.path}")
 puts ""
 puts "Content of last backup:"
 if definition.type.to_s == "tgz"
-  Sometimes::Shell.execute("tar --list -f #{Sometimes::FileEnvironment.path_to_last_file definition}")
+  Sometimes::Shell.execute("tar --list -f #{Sometimes::FileEnvironment.last_file_link_path definition}")
 end
 
 # Exit gracefully
