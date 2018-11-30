@@ -33,7 +33,7 @@ command = "ssh-keygen -q -N '' -C '%s' -f %s" % [definition.comment,
 # Create the key-pair
 Sometimes::Shell.execute(command)
 if $?.exitstatus != 0
-  STDERR.puts "Key creation failed!"
+  STDERR.puts "Key creation failed with exit #{$?.exitstatus}."
   exit 1
 end
 
