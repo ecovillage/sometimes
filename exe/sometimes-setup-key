@@ -11,8 +11,20 @@ require 'optparse'
 optparse, options = Sometimes::CLI::Common.option_parser
 optparse.parse!
 
-definition = Sometimes::read_def options[:conf_file]
-key_path = File.expand_path definition.key
+# TODO move this into the boilerplate
+if !options[:conf_file] && !ARGV[0]
+  STDERR.puts "Need to specify definition file (-c or as argument)."
+  exit 1
+end
+if options[:conf_file] && ARGV[0]
+  STDERR.puts "Need to specify only one definition file (-c OR as argument)."
+  exit 1
+end
+
+definition_file = options[:conf_file] || ARGV[0]
+
+definition = Sometimes::read_def definition_file
+key_path   = File.expand_path definition.key
 
 shescape = lambda {|v| Shellwords.escape v}
 command = "ssh-keygen -q -N '' -C '%s' -f %s" % [definition.comment,
