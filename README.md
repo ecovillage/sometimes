@@ -6,7 +6,7 @@ Too simple script (tss) to create backups or other regular tasks with file outpu
 
 Only ready to use for the insanest of all people.
 
-Copyright 2018 Felix Wolfsteller, licensed under the GPLv3 (see LICENSE file for details).
+Copyright 2018, 2019 Felix Wolfsteller, licensed under the GPLv3 or any later version (see [LICENSE](LICENSE) file for details).
 
 ## Installation
 
@@ -28,7 +28,7 @@ Or install it yourself as:
 
 `sometimes` can be used like the following:
 
-Two servers exists (called `productive` and `backup`).  A copy of certail files on the `productive` server should be made every day (to the `backup` server).  A certain number of these copies should be kept (e.g. copies of the last /three/ days, of the last /two weeks/ and one from the beginning of the year).
+Two servers exists (called `productive` and `backup`).  A copy of certain files on the `productive` server should be made every day (to the `backup` server).  A certain number of these copies should be kept (e.g. copies of the last /three/ days, of the last /two weeks/ and one from the beginning of the year).
 
 The connection shall be made from the `backup` server to the `productive` server.  This is done via restricted ssh connections.
 
@@ -62,9 +62,9 @@ While all this behavior can be achieved with cron, rsync, shell-scripts, logrota
 ```
 
 
-### Config Files
+### Configuration Files
 
-A config file (for the moment called `BackupDefinition`) explains what should be backupped where and how.
+A configuration file (for the moment called `BackupDefinition`) explains what should be backupped where and how.
 
 example:
 
@@ -91,10 +91,10 @@ what: /var/exaback
   - On the backup server, run `sometimes-setup-keys -c <path_to_config_file>`, which will result in three files:
     * A private key (for password-less connection to productive server)
     * A public key  (for password-less connection to productive server)
-    * A file with an examplary authorized_keys file line (for the productive server, for restricted and password-less connection)
+    * A file with an examplary `authorized_keys` file line (for the productive server, for restricted and password-less connection)
   - On the backup server, run `sometimes-info -c <path_to_config_file>` to prove that you are willing to be forced into a weird workflow and off naming but also to create the relevant directories.
-  - On the productive server, adjust the ~/.ssh/authorized_keys accordingly
-  - On the backup server, install a cronjob, e.g. `0 1 * * * sometimes-execute -c <path_to_config_file>
+  - On the productive server, adjust the `~/.ssh/authorized_keys` accordingly
+  - On the backup server, install a cronjob, e.g. `0 1 * * * sometimes-execute -c <path_to_config_file>`
 
 Multiple entries.
 
