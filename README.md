@@ -10,7 +10,12 @@ Copyright 2018, 2019 Felix Wolfsteller, licensed under the GPLv3 or any later ve
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install the gem yourself as:
+
+    $ gem install sometimes
+
+Or add this line to your application's Gemfile (but `sometimes` does not really
+expose any useful functionality to be used in other Ruby projects):
 
 ```ruby
 gem 'sometimes'
@@ -20,9 +25,6 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sometimes
 
 ## General
 
@@ -62,13 +64,14 @@ While all this behavior can be achieved with cron, rsync, shell-scripts, logrota
 ```
 
 
-### Configuration Files
+### Configuration/Backup Definition Files
 
-A configuration file (for the moment called `BackupDefinition`) explains what should be backupped where and how.
+A configuration file (for the moment called `BackupDefinition`) explains what should be backupped where and how. It is stored in `YAML` format.
 
 example:
 
 ```
+# file exaback.yml
 path: /tmp/exaback
 key: /tmp/key
 comment: exabackup files
