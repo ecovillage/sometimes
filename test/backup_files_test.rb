@@ -23,7 +23,24 @@ class BackupFilesTest < Minitest::Test
 
   def test_oldest_date_in
     within_construct do |construct|
+      construct.directory('backups/def/yearly') do |dir|
+        dir.file('2018-01-01_1000.tgz')
+        dir.file('2019-01-01_0922.tgz')
+        dir.file('2019-01-01_1000.tgz')
+      end
+      construct.directory('backups/def/weekly') do |dir|
+        dir.file('2018-01-01_1000.tgz')
+        dir.file('2019-01-01_0922.tgz')
+        dir.file('2019-01-01_1000.tgz')
+      end
+      construct.directory('backups/def/monthly') do |dir|
+        dir.file('2018-01-01_1000.tgz')
+        dir.file('2019-01-01_0922.tgz')
+        dir.file('2019-01-01_1000.tgz')
+      end
       construct.directory('backups/def/daily') do |dir|
+        dir.file('2018-01-01_1000.tgz')
+        dir.file('2019-01-01_0922.tgz')
         dir.file('2019-01-01_1000.tgz')
       end
 
@@ -41,6 +58,10 @@ class BackupFilesTest < Minitest::Test
       )
 
       oldest_daily = Sometimes::BackupFiles.oldest_date_in(definition, :daily)
+      oldest_func = Sometimes::BackupFiles.method(:oldest_date_in).curry[definition]
+      [:weekly, :monthly, :yearly].each do |s|
+        assert_equal oldest_func[s], DateTime.civil(2019, 1, 1, 10, 0)
+      end
 
       assert_equal oldest_daily, DateTime.civil(2019, 1, 1, 10, 0)
     end
