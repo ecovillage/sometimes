@@ -7,6 +7,21 @@ module Sometimes
       #[ , ]
     end
 
+    def self.oldest_date_in definition, scheme
+      path_expr = File.join(store_path(definition, scheme), '**/*')
+      last = Dir[path_expr]&.sort&.last
+      if last
+        strtime = File.basename(last, File.extname(last))
+        DateTime.strptime strtime, "%F_%H%M"
+      else
+        nil
+      end
+    end
+
+    def self.store_path definition, scheme=nil
+      File.join(definition.path, scheme.to_s)
+    end
+
     def self.path_to_file_now definition, scheme
       #store_path = "#{definition.path}/#{scheme.to_s}"
       now = "#{DateTime.now.strftime('%F_%H%M')}"
