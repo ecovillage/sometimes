@@ -21,6 +21,40 @@ class BackupFilesTest < Minitest::Test
       Sometimes::BackupFiles.store_path(definition, :daily)
   end
 
+  def test_most_recent_backup_date
+    within_construct do |construct|
+      construct.directory('backups/def/yearly') do |dir|
+        dir.file('2018-01-01_1000.tgz')
+      end
+      construct.directory('backups/def/weekly') do |dir|
+        dir.file('2019-01-01_0922.tgz')
+      end
+      construct.directory('backups/def/monthly') do |dir|
+        dir.file('2019-01-01_1000.tgz')
+      end
+      construct.directory('backups/def/daily') do |dir|
+        dir.file('2019-01-01_0922.tgz')
+      end
+
+      definition = Sometimes::BackupDefinition.new(
+        path: 'backups/def',
+        key:  'key',
+        store_size: {
+          daily:   1,
+          weekly:  1,
+          monthly: 1,
+          yearly:  1
+        },
+        type: 'tgz',
+        version: 1
+      )
+
+      most_recent = Sometimes::BackupFiles.last_backup_date(definition)
+
+      assert_equal most_recent, DateTime.civil(2019, 1, 1, 10, 0)
+    end
+  end
+
   def test_oldest_date_in
     within_construct do |construct|
       construct.directory('backups/def/yearly') do |dir|

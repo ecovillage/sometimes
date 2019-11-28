@@ -18,6 +18,10 @@ module Sometimes
       end
     end
 
+    def self.last_backup_date definition
+    end
+
+
     def self.store_path definition, scheme=nil
       File.join(definition.path, scheme.to_s)
     end
