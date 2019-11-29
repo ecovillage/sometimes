@@ -2,9 +2,12 @@
 
 Sometimes backups are good.
 
-Too simple script (tss) to create backups or other regular tasks with file output via ssh.
+Too simple script (tss) to create backups or other regular tasks with file output via ssh.  This results in `non-differential backups` (a 'full' backup during every run).
 
 Only ready to use for the insanest of all people.
+
+It is rooted in some shell scripts and initially development was carried out to closely match that, such that you could copy the commands to shell.  It slowly deviated from that use (now, more and more implementation is moved to the ruby-style).
+Originally, the aim was to be able to run sometimes without any other ruby-gem-dependencies.
 
 Copyright 2018, 2019 Felix Wolfsteller, licensed under the GPLv3 or any later version (see [LICENSE](LICENSE) file for details).
 
