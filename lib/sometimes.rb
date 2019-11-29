@@ -2,6 +2,7 @@ require "sometimes/version"
 
 require "sometimes/backup_definition"
 require "sometimes/shell"
+require "sometimes/shell/ssh"
 require "sometimes/cli/common"
 require "sometimes/backup_files"
 require "sometimes/file_environment"
