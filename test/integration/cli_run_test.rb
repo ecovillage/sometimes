@@ -16,7 +16,7 @@ class CliRunTest < Minitest::Test
     end
   end
 
-  def test_creates_file
+  def test_creates_file_only_daily
     timelock = Date.civil(2019,2,2)
     ssh_mock = "touch backups/def/daily/20190202_0000.tgz"
 
@@ -26,9 +26,9 @@ class CliRunTest < Minitest::Test
         key:  'key',
         store_size: {
           daily:   1,
-          weekly:  1,
-          monthly: 1,
-          yearly:  1
+          weekly:  0,
+          monthly: 0,
+          yearly:  0
         },
         type: 'tgz',
         version: 1
@@ -44,9 +44,16 @@ class CliRunTest < Minitest::Test
       assert File.directory? 'backups/def'
       assert File.directory? 'backups/def/daily'
 
-      s = :daily
-      expected_file_path = File.join('backups/def', s.to_s, '20190202_0000.tgz')
-      assert File.exist?(expected_file_path)
+      [:daily].each do |s|
+        expected_file_path = File.join('backups/def', s.to_s, '20190202_0000.tgz')
+        assert File.exist?(expected_file_path)
+      end
+      [:monthly, :weekly, :yearl].each do |s|
+        expected_file_path = File.join('backups/def', s.to_s, '20190202_0000.tgz')
+        refute File.exist?(expected_file_path)
+      end
+
+      assert File.symlink?('backups/def/last.tgz')
     end
   end
 end
