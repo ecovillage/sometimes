@@ -3,6 +3,8 @@ require 'pathname'
 
 module Sometimes
   module BackupFiles
+    FILE_DATE_FORMAT = "%F_%H%M"
+
     def self.monthly definition
       #[ , ]
     end
@@ -12,7 +14,7 @@ module Sometimes
       last = Dir[path_expr]&.sort&.last
       if last
         strtime = File.basename(last, File.extname(last))
-        DateTime.strptime strtime, "%F_%H%M"
+        DateTime.strptime strtime, FILE_DATE_FORMAT
       else
         nil
       end
@@ -48,10 +50,14 @@ module Sometimes
     end
 
     def self.path_to_file_now definition, scheme
-      #store_path = "#{definition.path}/#{scheme.to_s}"
-      now = "#{DateTime.now.strftime('%F_%H%M')}"
+      #now = "#{DateTime.now.strftime(FILE_DATE_FORMAT)}"
+      self.path_to_file_at definition, scheme, DateTime.now
+    end
+
+    def self.path_to_file_at definition, scheme, datetime
       extension = Sometimes::FileEnvironment.file_extension(definition)
-      store_path = File.join(definition.path, scheme.to_s, now + "." + extension)
+      time_string = datetime.strftime(FILE_DATE_FORMAT)
+      store_path = File.join(definition.path, scheme.to_s, time_string + "." + extension)
     end
 
     def self.link_last! definition, file
