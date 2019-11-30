@@ -27,6 +27,11 @@ module Sometimes
     def self.age_of_in_units definition, scheme
       now = DateTime.now
       age = self.oldest_date_in(definition, scheme)
+
+      if age.nil?
+        return Float::INFINITY
+      end
+
       if scheme == :daily
         now - age
       elsif scheme == :weekly
