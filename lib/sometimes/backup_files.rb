@@ -21,6 +21,27 @@ module Sometimes
     def self.last_backup_date definition
     end
 
+    # TODO beware we are wrong with "old", "new", and "last" terminology
+    def self.age_of_in_units definition, scheme
+      now = DateTime.now
+      age = self.oldest_date_in(definition, scheme)
+      if scheme == :daily
+        now - age
+      elsif scheme == :weekly
+        (now - age) / 7.0
+      elsif scheme == :monthly
+        (now - age) / 30.5
+      elsif scheme == :yearly
+        (now - age) / 365
+      end
+    end
+
+    def self.oldest_date definition
+      dates = [:daily, :weekly, :monthly, :yearly].map do |scheme|
+        self.oldest_date_in(definition, scheme)
+      end.flatten
+      dates.max
+    end
 
     def self.store_path definition, scheme=nil
       File.join(definition.path, scheme.to_s)
