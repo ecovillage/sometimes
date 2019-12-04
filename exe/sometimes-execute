@@ -4,8 +4,11 @@ require 'sometimes'
 
 require 'date'
 
-optparse, options = Sometimes::CLI::Common.option_parser ""\
+description ~>DESC
   "Runs a backup and shuffles files around as indicated by the definition file."
+DESC
+
+optparse, options = Sometimes::CLI::Common.option_parser description
 optparse.parse!
 
 Sometimes::EnvironmentCheck.check!
