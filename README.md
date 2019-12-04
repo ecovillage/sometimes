@@ -11,6 +11,10 @@ Originally, the aim was to be able to run sometimes without any other ruby-gem-d
 
 Copyright 2018, 2019 Felix Wolfsteller, licensed under the GPLv3 or any later version (see [LICENSE](LICENSE) file for details).
 
+### Architecture, Design Decisions, Gotchas
+
+  * The `date` of a backup file is derived from its **file name**, not from the modification or creation date of the file.
+
 ## Installation
 
 Install the gem yourself as:
@@ -111,6 +115,8 @@ Currently following scenarios (types) are supported:
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+To run tests with guard (re-run test on file changes), run `bundle exec guard` in a separate terminal.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
