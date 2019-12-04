@@ -30,4 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "test_construct"
   spec.add_development_dependency "timecop"
+  spec.add_development_dependency "guard"
+  spec.add_development_dependency "guard-minitest"
 end
