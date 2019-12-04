@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash/indifferent_access'
+
 module Sometimes
   class BackupDefinition
     attr_reader :path, :key, :comment, :store_size, :user, :host, :type, :what, :version, :type
@@ -8,7 +10,7 @@ module Sometimes
       @path    = File.expand_path path if path
       @key     = File.expand_path key  if key
       @comment = comment
-      @store_size = store_size
+      @store_size = store_size.with_indifferent_access
       @user    = user
       @host    = host
       @what    = what

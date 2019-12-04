@@ -16,7 +16,8 @@ class BackupDefinitionTest < Minitest::Test
     assert_equal definition.type, 'tgz'
     assert_equal definition.path, '/backups/def'
     assert_equal definition.key,  '/key'
-    assert_equal definition.store_size, {daily: 1, weekly: 2, monthly: 3, yearly: 4}
+    store_sizes = {"daily" => 1, "weekly" => 2, "monthly" => 3, "yearly" => 4}
+    assert_equal store_sizes, definition.store_size
     assert_equal definition.store_size[:daily],    1
     assert_equal definition.store_size[:weekly  ], 2
     assert_equal definition.store_size[:monthly ], 3
